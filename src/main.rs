@@ -58,6 +58,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
+    if object_name.is_none() {
+        Err("Did not find import table")?
+    }
+
     let object_name = object_name.unwrap();
     let mut coff = coff_data.unwrap();
     let new_location = new_location.unwrap();
