@@ -96,12 +96,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap();
 
     if !run.wait()?.success() {
-        fs::remove_file(object_name)?;
         std::io::copy(&mut run.stdout.take().unwrap(), &mut std::io::stdout()).unwrap();
         std::io::copy(&mut run.stderr.take().unwrap(), &mut std::io::stderr()).unwrap();
 
         Err("Archive failed").unwrap()
     }
+
+    fs::remove_file(object_name)?;
 
     Ok(())
 }
